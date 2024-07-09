@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://thymeleaf.org"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://thymeleaf.org ">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<style>
+  body { background: #edf4f7; }
+  button {background: #ed8713;}
+  button:hover{background: #dcedf2;}
+  table { width: 70%; border-collapse: collapse; background:#fafaf7}
+  td, th { padding: 2px;
+    border: 1px solid #333;}
+  th { background: #0e71ab; }
+  td {height: 10px;}
+  .superbutton {background: #ed8713;}
+  .superbutton:hover{background: #dcedf2;}
+</style>
+<td th:text="${error}"></td>
+<form th:action="@{/add/creat}" method="post" th:object="${clientsAddressDTO}">
+  <p>Наименование клиента<input th:field="*{clientName}" type="text" name="clientName" id="clientName"></p>
+  <p><select th:field="*{typeclient}" name="typeclient" id="typeclient">
+  <option value="Юридическое лицо">Юридическое лицо</option>
+  <option value="Физическое лицо">Физическое лицо</option></select></p>
+  <p>Дата создания клиента<input th:field="*{datecreatclient}" value="${#temporals.formatISO(localDate)}" type="date" name="datecreatclient" id="datecreatclient"></p>
+  <p>IP<input th:field="*{ip}" type="text" placeholder= "255.255.255.255" name="ip" id="ip"></p>
+  <p>MAC<input th:field="*{mac}" type="text" placeholder= "1A-1B-2C-4E-8H-9" name="mac" id="mac"></p>
+  <p>Модель<input th:field="*{model}" type="text" name="model" id="model"></p>
+  <p>Адрес<input th:field="*{address}" type="text" name="address" id="address"></p>
+  <p><input type="submit"class="superbutton" value="зарегистрироваться"></p>
+  <a th:href="@{/}">Все персоны</a>
+</form>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://thymeleaf.org"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://thymeleaf.org ">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<link href="css/hover-min.css" rel="stylesheet">
+<style>
+    body { background: #edf4f7; }
+    button {background: #ed8713;border-radius: 0.4em;
+        transition: background-color 0.4s, box-shadow 0.2s 0.3s;
+        margin-top:10px
+    }
+    button:hover{background: #dcedf2;
+        box-shadow: 0 0 0 2px #fff, 0 0 0 4px #3f8a7c}
+    .superbutton { width: 5em; /* Ширина кнопки */
+        height: 3em; /* Высота кнопки */
+        background: #fafaf7;
+        border-width: 0;
+        border-radius: 0.4em;
+        font-weight: bold;}
+    .superbutton:hover{background: #0e71ab;
+        animation: flip 1s; /* Название и время анимации */
+    }
+    @keyframes flip {
+        0%, 100% { transform: rotateX(0); }
+        50% { transform: rotateX(-180deg); }}
+table { width: 70%; border-collapse: collapse; background:#fafaf7}
+td, th { padding: 2px;
+border: 1px solid #333;}
+th { background: #0e71ab; }
+td {height: 10px;}
+</style>
+<body>
+    <h1>Список клиентов</h1>
+<a th:href="@{/add/creat}"><button>Добавить клиента</button></a>
+    <hr>
+<form th:action="@{/}">
+    <h2>Поиск:</h2>
+    Тип клиента:
+    <select name="type" id="type" th:value="${type}">
+        <option value=""></option>
+        <option value="Юридическое лицо">Юридическое лицо</option>
+        <option value="Физическое лицо">Физическое лицо</option>
+    </select>
+    Наименование/адрес клиента:
+    <input type="text" name="name" id="name" th:value="${name}" />
+    <input type="submit" class="superbutton" value="ПОИСК" />
+</form>
+    <table border="1">
+        <thead>
+        <tr>
+            <th>Имя клиента</th>
+            <th>ID</th>
+            <th>Тип клиента</th>
+            <th>Дата создания клиента</th>
+            <th>IP</th>
+            <th>MAC</th>
+            <th>Модель</th>
+            <th>Адрес</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="clientsAddress:${clientsAddress}">
+            <td th:text="${clientsAddress.getClientName}"></td>
+            <td th:text="${clientsAddress.getClientid}"></td>
+            <td th:text="${clientsAddress.getTypeclient.getType}"></td>
+            <td th:text="${clientsAddress.getDatecreatclient}"></td>
+            <td th:text="${clientsAddress.getIp}"></td>
+            <td th:text="${clientsAddress.getMac}"></td>
+            <td th:text="${clientsAddress.getModel}"></td>
+            <td th:text="${clientsAddress.getAddress}"></td>
+            <td>
+        <form th:action="@{/client/update/{id}(id=${clientsAddress.getClientid})}" ><button class="btn hvr-float-shadow">обновить клиента и его адреса</button></form>
+        <form th:action="@{/remove/{id}(id=${clientsAddress.getClientid})}"><button class="btn hvr-float-shadow">Удалить клиента и его адреса</button></form>
+        <form th:action="@{/removeAddress/{id}(id=${clientsAddress.getAddressid != null} ? ${clientsAddress.getAddressid}: 0)}"><button class="btn hvr-float-shadow">Удалить адрес</button></form>
+        </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

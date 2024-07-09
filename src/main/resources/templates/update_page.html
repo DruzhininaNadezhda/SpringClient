@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://thymeleaf.org"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://thymeleaf.org ">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<style>
+    body { background: #edf4f7; }
+    button {background: #ed8713;}
+    .superbutton {background: #ed8713;}
+    .superbutton:hover{background: #dcedf2;}
+    button:hover{background: #dcedf2;}
+    table { width: 70%; border-collapse: collapse; background:#fafaf7}
+    td, th { padding: 2px;
+        border: 1px solid #333;}
+    th { background: #0e71ab; }
+    td {height: 10px;}
+</style>
+<div align="left">
+    <hr>
+    <td th:text="${error}"></td>
+    <p> ID клиента
+    <p><form th:action="@{/client/update}"  method="post" th:object="${clientsDTO}">
+    <input th:field="*{clientid}" placeholder="client" disabled></a></p>
+    <input th:field="*{clientid}" type="hidden"  name="clientid" id="clientid"  placeholder="clientid"></p>
+    Наименование клиента
+    <input th:field="*{clientName}" type="text" name="name" id="name" placeholder="client"></p>
+    <p> Тип клиента:
+        <select th:field="*{typeclient}" name="type" id="type" placeholder="type-client" >
+            <option value="Юридическое лицо">Юридическое лицо</option>
+            <option value="Физическое лицо">Физическое лицо</option>
+        </select></p>
+    <p>Дата создания клиента
+        <input th:field="*{datecreatclient}" type="date" name="dateCreatClient" id="dateCreatClient" placeholder="datecreatclient" ></p>
+    <p><input type="submit" class="superbutton" value="обновить клиента"></p>
+    </form>
+    <form th:action="@{/addresses/findClient/{id}(id=${clientsDTO.get().getClientid()})}" ><button>обновить адреса</button></form>
+    <a th:href="@{/}">Все персоны</a>
+</div>
+</body>
+</html>
